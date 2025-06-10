@@ -13,7 +13,7 @@ env:
   FEEDS_DIY: feedsdiy.sh
   ADD_FEEDS: add_feeds.sh
   CLASH_KERNEL: amd64
-  CACHE_TOOLCHAIN: false
+  CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
   FIRMWARE_TAG: IPQ60XX-NOWIFI
@@ -109,6 +109,8 @@ jobs:
         cd $OPENWRT_PATH
         bash $GITHUB_WORKSPACE/$DIY_SCRIPT
         ./scripts/feeds update -a
+        rm -rf feeds/packages/lang/golang
+        git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
         ./scripts/feeds install -a
         bash $GITHUB_WORKSPACE/$FEEDS_DIY
   
